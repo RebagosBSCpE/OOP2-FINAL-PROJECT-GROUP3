@@ -1,0 +1,93 @@
+/* sets the background color and text size */
+QWidget#StudentDashboard {
+    background-color: #f4f6fb;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 13px;
+    color: #202939;
+}
+
+/* changes the text size */
+QLabel{
+    font-size: 24px;
+    font-weight: bold;
+    color: #1e293b;
+}
+
+/* makes the sub-text under the main title smaller and shows a gray color*/
+QLabel {
+    font-size: 12px;
+    color: #64748b;
+}
+
+/* makes section labels bold to stand out from normal text */
+QLabel{
+    font-weight: bold;
+    color: #1e293b;
+}
+
+/* sets standard styling for text inputs, dropdown boxes, and date selectors */
+QLineEdit, QComboBox, QDateEdit {
+    background-color: white;
+    border: 2px solid #93b8e4;
+    border-radius: 8px;
+    padding: 6px;
+    color: #1e293b;
+}
+
+/*changes the border color when clicking or typing inside an input box*/
+QLineEdit:focus, QComboBox:focus, QDateEdit:focus, QSpinBox:focus {
+    border-color: #00f7ff;
+}
+
+/* to force the popup list inside the dropdown box to show dark text on a white background */
+QComboBox QAbstractItemView {
+    background-color: white;
+    color: #1e293b;
+    selection-background-color: #81a1ca;
+    selection-color: white;
+}
+
+/* sets a blue background and white text for the item adding button */
+QPushButton#addItemBtn {
+    background-color: #81a1ca;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+/* darkens the item adding button when the mouse points to it */
+QPushButton#addItemBtn:hover {
+    background-color:  #6c8eb8;
+}
+
+/* default gray background and bold text for the clear items button */
+QPushButton#clearItemsBtn {
+    background-color: #e2e8f0;
+    color: #334155;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 10px;
+}
+/* darkens the clear button a little when it points the cursor to it*/
+QPushButton#clearItemsBtn:hover {
+   background-color: #cbd5e1;
+}
+
+QPushButton#submitRequestBtn {
+    background-color: #00ddff;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+QPushButton#submitRequestBtn:hover {
+    background-color: #00b8d4;
+}
+/* sets styles for the table grid background and its outer borders */
+QTableWidget {
+    background-color: white;
+    border: 2px solid #93b8e4;
+    border-radius: 8px;
+}
