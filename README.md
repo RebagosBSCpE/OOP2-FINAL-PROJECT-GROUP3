@@ -41,7 +41,7 @@ This PyQt6 desktop application keeps the **same borrowing steps**, but in one pl
 - Logs in and sees approved slips
 - Releases items against the student ID
 - Receives returned items
-- See the available materials inside inventorty
+- See the available materials inside inventory
 
 </td>
 </tr>
