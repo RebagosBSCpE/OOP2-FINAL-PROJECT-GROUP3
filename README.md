@@ -3,26 +3,6 @@
 
 ![image alt](https://github.com/RebagosBSCpE/OOP2-FINAL-PROJECT-GROUP3/blob/main/Laboratory%20Equipment%20Borrowing%20and%20Inventory%20Management%20System.png?raw=true)
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:000000,50:F9B90F,100:000000&height=130&section=header" width="100%">
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:000000,50:F9B90F,100:000000&height=130&section=header" width="100%">
-
-<p align="center">
-  <img src="assets/banner.png" alt="Laboratory Equipment Borrowing and Inventory Management System" width="100%">
-</p>
-
-<p align="center">
-  <a href="https://git.io/typing-svg">
-    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=900&color=F9B90F&background=000000&center=true&vCenter=true&width=760&height=60&lines=Request.+Approve.+Release.+Return.;Paper+slips+out%2C+PyQt6+in.;CPE+009B+%7C+OOP+2+Final+Project" alt="Typing animation">
-  </a>
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-000000?style=for-the-badge&logo=python&logoColor=F9B90F">
-  <img src="https://img.shields.io/badge/PyQt6-F9B90F?style=for-the-badge&logo=qt&logoColor=black">
-  <img src="https://img.shields.io/badge/QSS_Styled-000000?style=for-the-badge&logoColor=F9B90F">
-  <img src="https://img.shields.io/badge/JSON_Storage-F9B90F?style=for-the-badge&logoColor=black">
-  <img src="https://img.shields.io/badge/PyInstaller-000000?style=for-the-badge&logoColor=F9B90F">
-</p>
 
 <br>
 
@@ -121,6 +101,4 @@ Releasing items lowers the available quantity. Receiving the return adds it back
 | **PyInstaller** | Packaging as a Windows `.exe` |
 | **Git and GitHub** | Version control and teamwork |
 
-<br>
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:000000,50:F9B90F,100:000000&height=110&section=footer" width="100%">
