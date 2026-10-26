@@ -58,9 +58,8 @@ This PyQt6 desktop application keeps the **same borrowing steps**, but in one pl
 | ✅ | **Approve or reject** | Professors review their slips with optional remarks |
 | 📦 | **Release and return** | Staff verify the student ID, release items, and receive returns |
 | 🗃️ | **Inventory management** | Add, edit, and delete equipment with total, available, and borrowed counts |
-| 🔎 | **Search and filter** | Find slips by keyword or filter by status on every dashboard |
-| 💾 | **Save and load** | Users, equipment, and slips are stored in `data.json` and kept after closing |
-| 🧭 | **Menu bar and toolbar** | Save, Logout, Exit, and About for quick access |
+| 💾 | **Save and load** | Users, equipment, and slips are stored in `csv` and kept after closing |
+| 🧭 | **Menu bar and toolbar** | Save, Logout, and Exit|
 | 🛡️ | **Input validation** | Blocks empty fields, zero or excessive quantities, and unavailable items |
 
 <br>
