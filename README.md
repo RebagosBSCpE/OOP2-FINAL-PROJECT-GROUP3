@@ -12,8 +12,6 @@ In most school laboratories, borrowing equipment still means a paper slip: the s
 
 This PyQt6 desktop application keeps the **same borrowing steps**, but in one place. The student sends a slip, the professor approves or rejects it, and the laboratory staff release and receive the items while the inventory updates by itself.
 
-> 🌍 Supports **SDG 9: Industry, Innovation, and Infrastructure** by replacing a paper logbook with a small, reliable software tool.
-
 <br>
 
 ## 👥 Who Uses It
