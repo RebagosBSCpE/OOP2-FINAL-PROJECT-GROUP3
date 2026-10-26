@@ -49,29 +49,6 @@ This PyQt6 desktop application keeps the **same borrowing steps**, but in one pl
 </tr>
 </table>
 
-<br>
-
-## 🔄 Slip Lifecycle
-
-```mermaid
-flowchart LR
-    A([Pending]) --> B{Professor}
-    B -->|approves| C([Approved])
-    B -->|rejects| D([Rejected])
-    C -->|staff release items| E([Released])
-    E -->|staff receive return| F([Returned])
-
-    style A fill:#F9B90F,stroke:#000,color:#000
-    style B fill:#000,stroke:#F9B90F,color:#F9B90F
-    style C fill:#F9B90F,stroke:#000,color:#000
-    style D fill:#fff,stroke:#000,color:#000
-    style E fill:#F9B90F,stroke:#000,color:#000
-    style F fill:#000,stroke:#F9B90F,color:#F9B90F
-```
-
-Releasing items lowers the available quantity. Receiving the return adds it back.
-
-<br>
 
 ## ✨ Features
 
