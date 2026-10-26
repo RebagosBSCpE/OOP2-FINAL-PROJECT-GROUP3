@@ -74,7 +74,7 @@ This PyQt6 desktop application keeps the **same borrowing steps**, but in one pl
 | **Python** | Programming language |
 | **PyQt6** | Graphical user interface |
 | **QSS (Qt Style Sheets)** | White, yellow, and black theme |
-| **json** | Saving and loading data |
+| **csv** | Saving and loading data |
 | **PyInstaller** | Packaging as a Windows `.exe` |
 | **Git and GitHub** | Version control and teamwork |
 
