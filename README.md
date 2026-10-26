@@ -8,9 +8,9 @@
 
 ## 📌 About the Project
 
-In most school laboratories, borrowing equipment relies on a paper-based method—students fill out physical slips, hunt down professors for signatures, and hand them to the laboratory staff to write down. Paper forms get lost, signatures are hard to track down, and staff cannot easily verify which items are currently available or who holds what.
+In most school laboratories, borrowing equipment relies on a paper-based method students fill out physical slips, hunt down professors for signatures, and hand them to the laboratory staff to write down. Paper forms get lost, signatures are hard to track down, and staff cannot easily verify which items are currently available or who holds what.
 
-This PyQt6 desktop application eliminates paper-based methods to make borrowing faster, more convenient, and easily accessible at any time. It keeps the **same borrowing steps**, but digitizes them in one centralized system—students submit borrowing requests digitally, professors approve or reject them online, and laboratory staff release and receive items while maintaining staff-based records and real-time inventory updates. Packaged as a standalone `.exe`, this PyQt6 application solves the problem by preventing lost slips, stopping invalid requests, and keeping stock counts automatically accurate.
+This PyQt6 desktop application eliminates paper-based methods to make borrowing faster, more convenient, and easily accessible at any time. It keeps the same borrowing steps but digitizes them in one centralized system students submit borrowing requests digitally, professors approve or reject them online, and laboratory staff release and receive items while maintaining staff-based records and real-time inventory updates. Packaged as a standalone .exe, this PyQt6 application solves the problem by preventing lost slips, stopping invalid requests, and keeping stock counts automatically accurate.
 
 <br>
 
