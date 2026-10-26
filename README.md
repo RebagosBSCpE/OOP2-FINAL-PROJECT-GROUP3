@@ -71,7 +71,7 @@ This PyQt6 desktop application eliminates paper-based methods to make borrowing 
 | **Python** | Programming language |
 | **PyQt6** | Graphical user interface |
 | **QSS (Qt Style Sheets)** | White, yellow, and black theme |
-| **csv** | Saving and loading data |
+| **Csv** | Saving and loading data |
 | **PyInstaller** | Packaging as a Windows .exe |
 | **Git and GitHub** | Version control and teamwork |
 
