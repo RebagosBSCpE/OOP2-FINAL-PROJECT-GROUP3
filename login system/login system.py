@@ -81,7 +81,7 @@ class LoginWindow(QWidget):
         buttons.addWidget(self.clear_btn)
         buttons.addWidget(self.login_btn)
         
-        # Stacks all elements vertically straight down the page layout matrix
+        # stacks all elements vertically straight down the page layout
         layout = QVBoxLayout()
         layout.addWidget(self.title)
         layout.addWidget(self.subtitle)
