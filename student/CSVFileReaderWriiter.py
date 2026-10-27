@@ -11,7 +11,6 @@ class CSVFileReaderWriter(FileReaderWriter):
             return list(data)
         
     def write(self, filepath, data):
-        # Open in append 'a' mode so new student requests accumulate without deleting old rows
         with open(filepath, 'a', newline='') as csvfile:
             writer = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
             writer.writerow(data)
