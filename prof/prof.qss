@@ -7,20 +7,20 @@ QWidget {
 }
 
 /* changes the text size and sets the primary main title text color */
-QLabel {
+QLabel#pageTitle {
     font-size: 20px;
     font-weight: bold;
     color: #1e293b;
 }
 
 /* makes the sub-text under the main title smaller and shows a gray color */
-QLabel {
+QLabel#pageSubtitle {
     font-size: 12px;
     color: #64748b;
 }
 
 /* makes section labels bold to stand out from normal text */
-QLabel {
+QLabel#sectionLabel {
     font-weight: bold;
     color: #1e293b;
     margin-top: 5px;
@@ -57,8 +57,13 @@ QHeaderView::section {
     border: none;
 }
 
+QHeaderView{
+    background-color: #334155;
+    border: none;
+}
+
 /* styles the approve button with a blue background color */
-QPushButton, QPushButton {
+QPushButton#publishBtn, QPushButton#approveBtn {
     background-color: #2449a4;
     color: white;
     font-weight: bold;
@@ -68,12 +73,12 @@ QPushButton, QPushButton {
 }
 
 /* darkens the blue color when you hover over the approve button */
-QPushButton:hover, QPushButton:hover {
+QPushButton#publishBtn:hover, QPushButton#approveBtn:hover {
     background-color: #1b3986;
 }
 
 /* styles the decline button with a red background color */
-QPushButton {
+QPushButton#rejectBtn {
     background-color: #b93838;
     color: white;
     font-weight: bold;
@@ -83,6 +88,6 @@ QPushButton {
 }
 
 /* darkens the red color when you hover over the decline button */
-QPushButton:hover {
+QPushButton#rejectBtn:hover {
     background-color: #962b2b;
 }
