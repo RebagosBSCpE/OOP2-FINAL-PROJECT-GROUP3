@@ -10,6 +10,12 @@ class BorrowRequestData:
         self.date_needed = date_needed
         self.items = items
         self.status = "Pending Approval"
+        # to store the laboratory tracking number assigned when staff releases items
+        self.lab_id = ""
+        # records the exact date and time when the student sends the form
+        self.timestamp_submitted = ""
+        # records the exact date and time when the materials are brought back
+        self.timestamp_returned = ""
 
 class Announcement:
     def __init__(self, author: str, message: str, time_posted: str):
