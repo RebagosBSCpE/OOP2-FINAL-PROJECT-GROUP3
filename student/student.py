@@ -1,17 +1,21 @@
-import os
-import sys
-from pathlib import Path
-from data_model_student import BorrowRequestData
-from CSVFileReaderWriiter import CSVFileReaderWriter
 from PyQt6.QtWidgets import QWidget, QMessageBox, QTableWidgetItem, QApplication
 from studentui import StudentDashboardApp
+from pathlib import Path
+from data_model_student import BorrowRequestData
+import sys
+import os
+from datetime import datetime
+from CSVFileReaderWriter import CSVFileReaderWriter
+
 class StudentDashboard(QWidget):
-    def __init__(self, shared_requests_list=None, shared_announcements=None):
+    def __init__(self, shared_requests_list=None, shared_announcements=None, shared_inventory = None):
         super().__init__()
         
         # to remember the shared list info links passed from the main application window
         self.shared_requests = shared_requests_list if shared_requests_list is not None else []
         self.shared_announcements = shared_announcements if shared_announcements is not None else []
+        #list of stock from the staff dashboard
+        self.shared_inventory = shared_inventory if shared_inventory is not None else[]
         
         # creates an instance of the interface layout
         self.ui = StudentDashboardApp()
@@ -21,9 +25,16 @@ class StudentDashboard(QWidget):
         self.ui.add_item_btn.clicked.connect(self.add_item_to_table)
         self.ui.clear_items_btn.clicked.connect(self.clear_table_items)
         self.ui.submit_request_btn.clicked.connect(self.process_submission)
+        self.ui.stock_search_input.textChanged.connect(self.search_stock) # connects the typing input box to the search function
+        
+        # runs the professor list update function whenever the program dropdown changes
+        self.ui.program.currentTextChanged.connect(self.update_professor_list)
         
         # automatically updates the dashboard display items list on startup
         self.load_announcements_data()
+        
+        # Sets up the correct professors for the default selected program on startup
+        self.update_professor_list()
         
     def load_announcements_data(self):
         # clears out the list view widget completely before showing fresh notes
@@ -32,6 +43,31 @@ class StudentDashboard(QWidget):
         # loops through the shared announcements list to fill the display rows
         for info in self.shared_announcements:
             self.ui.announcements_list.addItem(f"[{info.time_posted}] {info.author}: {info.message}")
+    
+    # shows the materials that match the typed text together with how many are available
+    def search_stock(self):
+        self.ui.stock_results.clear()
+        text = self.ui.stock_search_input.text().strip().lower()
+        if not text:
+            return
+        if not self.shared_inventory:
+            self.ui.stock_results.addItem("No inventory data received yet.")
+            return
+        for stock in self.shared_inventory:
+            if text in stock.material_name.lower():
+                self.ui.stock_results.addItem(f"{stock.material_name} - {stock.quantity_available} available")
+        if self.ui.stock_results.count() == 0:
+            self.ui.stock_results.addItem("No matching material found.")
+            
+    def update_professor_list(self):
+        self.ui.professor.clear()
+        program = self.ui.program.currentText()
+        if "Computer Engineering" in program:
+            self.ui.professor.addItems(["Engr. Jimlord Quejado", "Engr. Menchie Rosales", "Engr. Ji Han Gang", "Engr. Lloyd Pornobi"])
+        elif "Electronics Engineering" in program:
+            self.ui.professor.addItems(["Engr. Ryan Alimuin", "Engr. Vhander Ramos", "ngr. Oliver John Alajas"])
+        elif "Electrical Engineering" in program:
+            self.ui.professor.addItems(["Dr. Christine Ann Teodoro Alquero", "Engr. EE Professor"])
 
     def add_item_to_table(self):
         name = self.ui.material_name_input.text().strip()
@@ -84,6 +120,28 @@ class StudentDashboard(QWidget):
         new_request = BorrowRequestData(request_id, student_id, student_name, course_section, date_needed, items_summary)
         self.shared_requests.append(new_request)
         
+        # gets the active calendar day and clock hour to stamp the form
+        new_request.timestamp_submitted = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self.shared_requests.append(new_request)
+        
+        # CSV conversion of slip of student to ITSO dashboard
+        csv_filepath = "ITSO_maintenance_dashboard.csv"
+        csv_handler = CSVFileReaderWriter()
+        
+        # verifies if the target backup file does not exist on the computer yet
+        if not os.path.exists(csv_filepath):
+            # creates the spreadsheet text file tracking column titles as the very first line
+            csv_handler.write(csv_filepath, ["Request ID", "Student ID", "Name", "Course Section", "Date Needed", "Items", "Status", "Lab ID", "Time Submitted", "Time Returned"])
+            
+        # collect and converts all the items into a row list
+        record_row = [
+            str(new_request.request_id), new_request.student_id, new_request.name,
+            new_request.course_section, str(new_request.date_needed), new_request.items, 
+            new_request.status, new_request.lab_id, new_request.timestamp_submitted, new_request.timestamp_returned
+        ]
+        # saves the rows of data directly into the spreadsheet file
+        csv_handler.write(csv_filepath, record_row)
+        
         # displays a confirmation that the request form was submitted
         QMessageBox.information(self, "Success", f"Borrowing request submitted successfully for {student_name}!")
         self.clear_entire_form()
@@ -91,7 +149,7 @@ class StudentDashboard(QWidget):
     def clear_entire_form(self):
         #clears out all text entry fields and empties the main table list
         self.ui.student_id.clear()
-        self.ui.student_name.clear()
+        self.ui.student_name.clear() 
         self.ui.course_section.clear()
         self.clear_table_items()
         
@@ -105,6 +163,6 @@ if __name__ == "__main__":
         
     window = StudentDashboard()
     window.setWindowTitle("Laboratory Borrowing System")
-    window.resize(600, 650)
+    window.resize(650, 650)
     window.show()
     sys.exit(app.exec())
