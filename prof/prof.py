@@ -23,6 +23,14 @@ class ProfessorDashboard(QWidget):
         
         # signal for the announcement publish button
         self.ui.publish_btn.clicked.connect(self.publish_announcement)
+        
+        # automatically sizes the table columns to fit the text inside them
+        self.ui.requests_table.resizeColumnsToContents()
+        # locks the column widths permanently so they cannot be stretched or messed up to look neatly
+        self.ui.requests_table.horizontalHeader().setSectionResizeMode(self.ui.requests_table.horizontalHeader().ResizeMode.Fixed)
+        
+        # loads all student requests into the table when the window opens
+        self.load_requests_data()
     
     def publish_announcement(self):
         message = self.ui.announcement_input.text().strip()
@@ -38,7 +46,7 @@ class ProfessorDashboard(QWidget):
         self.shared_announcements.insert(0, new_announcement)
         
         # displays a success alert window and clears out the announcement input line box
-        QMessageBox.information(self, "Success", "Announcement published successfully to all students!")
+        QMessageBox.information(self, "Success", "Announcement has been published successfully to all students!")
         self.ui.announcement_input.clear()
 
     def load_requests_data(self):
@@ -52,9 +60,13 @@ class ProfessorDashboard(QWidget):
             self.ui.requests_table.setItem(row, 0, QTableWidgetItem(req.student_id))
             self.ui.requests_table.setItem(row, 1, QTableWidgetItem(req.name))
             self.ui.requests_table.setItem(row, 2, QTableWidgetItem(req.course_sec))
-            self.ui.requests_table.setItem(row, 3, QTableWidgetItem(req.date_needed))
+            self.ui.requests_table.setItem(row, 3, QTableWidgetItem(str(req.date_needed))) # converts the date into plain text to prevent crashes
             self.ui.requests_table.setItem(row, 4, QTableWidgetItem(req.items))
             self.ui.requests_table.setItem(row, 5, QTableWidgetItem(req.status))
+            
+            # displays the exact time the request form arrived from the student
+            time_text = getattr(req, 'timestamp_submitted', '')
+            self.ui.requests_table.setItem(row, 6, QTableWidgetItem(time_text))
 
     def process_approval(self):
         row = self.ui.requests_table.currentRow()
