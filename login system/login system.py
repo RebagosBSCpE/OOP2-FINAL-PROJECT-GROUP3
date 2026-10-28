@@ -1,9 +1,16 @@
 import sys
-from PyQt6.QtCore import Qt, QPropertyAnimation, QEasingCurve, QPoint
+from PyQt6.QtCore import Qt, QPropertyAnimation, QEasingCurve, QPoint, QTimer
 from PyQt6.QtGui import QColor
 from PyQt6.QtWidgets import (QApplication, QWidget, QLabel, QLineEdit, QComboBox,
 QPushButton, QCheckBox, QVBoxLayout, QHBoxLayout, QGraphicsDropShadowEffect)
 from pathlib import Path
+
+parent_dir = str(Path(__file__).resolve().parent.parent)
+if parent_dir not in sys.path:
+    sys.path.append(parent_dir)
+
+from profui import ProfessorDashboardApp
+from studentui import StudentDashboardApp
 
 class LoginWindow(QWidget):
     def __init__(self):
@@ -114,9 +121,18 @@ class LoginWindow(QWidget):
         # setting up a default login validation rows check for each selected role type
         is_valid = False
         if role == "Student" and user == "student" and password == "1234":
+
             is_valid = True
+
+            QTimer.singleShot(3000, self.login_stud)
+
+
         elif role == "Professor" and user == "professor" and password == "prof123":
+
             is_valid = True
+
+            QTimer.singleShot(3000, self.login_prof)
+
         elif role == "Laboratory Staff" and user == "staff" and password == "staff123":
             is_valid = True
         elif role == "ITSO Maintenance" and user == "itso" and password == "itso123":
@@ -149,6 +165,23 @@ class LoginWindow(QWidget):
         widget.setProperty(name, value)
         widget.style().unpolish(widget)
         widget.style().polish(widget)
+
+    def login_stud(self):
+
+        self.stud_dashboard = QWidget()
+        self.stud_dashboard = StudentDashboardApp()
+        self.stud_dashboard.setupUi(self.stud_dashboard)
+        self.stud_dashboard.show()
+        self.close()
+
+
+    def login_prof(self):
+
+        self.prof_dashboard = QWidget()
+        self.prof_dashboard = ProfessorDashboardApp()
+        self.prof_dashboard.setupUi(self.prof_dashboard)
+        self.prof_dashboard.show()
+        self.close()
         
     # shakes the window window frame left and right to signal a bad password attempt
     def shake(self):
