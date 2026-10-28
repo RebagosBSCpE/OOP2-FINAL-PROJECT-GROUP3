@@ -8,7 +8,6 @@ from PyQt6.QtCore import QDate, Qt
 class StudentDashboardApp(QWidget):
     def setupUi(self, widget):
         
-        #include the main widget container name so it matches the style sheet selectors
         widget.setObjectName("StudentDashboard")
         
         # vertical layout to stack elements straight down from top to bottom
