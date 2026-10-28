@@ -2,13 +2,13 @@ from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel,
 QTextEdit, QPushButton, QTableWidget, QLineEdit)
 
 class ProfessorDashboardApp(QWidget):
-    def setupUi(self, widget_canvas):
+    def setupUi(self, widget):
         
         # to identify the layout container box name so it matches style sheet rules
-        widget_canvas.setObjectName("ProfessorDashboard")
+        widget.setObjectName("ProfessorDashboard")
         
         # layout that stacks widgets straight down from top to bottom
-        main_layout = QVBoxLayout(widget_canvas)
+        main_layout = QVBoxLayout(widget)
         main_layout.setContentsMargins(15, 15, 15, 15)
         main_layout.setSpacing(15)
 
@@ -30,9 +30,9 @@ class ProfessorDashboardApp(QWidget):
         main_layout.addWidget(table_label)
 
         # creates a grid view presentation table with zero rows and six columns
-        self.requests_table = QTableWidget(0, 6)
+        self.requests_table = QTableWidget(0, 7)
         self.requests_table.setHorizontalHeaderLabels([
-            "Request Student ID", "Student Name", "Course & Section", "Date Needed", "Requested Items", "Status"
+            "Request Student ID", "Student Name", "Course & Section", "Date Needed", "Requested Items", "Status", "Time Submitted"
         ])
         self.requests_table.setMinimumHeight(220)
         main_layout.addWidget(self.requests_table)
@@ -52,7 +52,7 @@ class ProfessorDashboardApp(QWidget):
         
         # clickable action button to publish the announcement text
         self.publish_btn = QPushButton("Publish")
-        self.publish_btn.setObjectName("approveBtn")
+        self.publish_btn.setObjectName("publishBtn")
         
         # arranges the announcement box and send button side by side in the row
         announcement_row.addWidget(self.announcement_input, 4)
