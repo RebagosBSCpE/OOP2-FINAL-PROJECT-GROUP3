@@ -84,22 +84,6 @@ class StudentDashboard(QWidget):
         new_request = BorrowRequestData(request_id, student_id, student_name, course_section, date_needed, items_summary)
         self.shared_requests.append(new_request)
         
-        #test feature
-        csv_filepath = "itso_maintenance_dashboard.csv"
-        csv_handler = CSVFileReaderWriter()
-        # Verifies if the target backup file does not exist on your computer yet
-        if not os.path.exists(csv_filepath):
-            # Creates the text file tracking column titles as the very first line
-            csv_handler.write(csv_filepath, ["Request ID", "Student ID", "Name", "Course Section", "Date Needed", "Items", "Status"])
-            
-        # Converts all structural fields into an array line to write to disk
-        record_row = [
-            str(new_request.request_id), new_request.student_id, new_request.name,
-            new_request.course_section, str(new_request.date_needed), new_request.items, new_request.status
-        ]
-        # Invokes your polymorphic class writer to save rows into the sheet logs
-        csv_handler.write(csv_filepath, record_row)
-        #-------------------------------------------------------
         # displays a confirmation that the request form was submitted
         QMessageBox.information(self, "Success", f"Borrowing request submitted successfully for {student_name}!")
         self.clear_entire_form()
