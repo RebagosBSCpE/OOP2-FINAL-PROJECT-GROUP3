@@ -1,11 +1,11 @@
 from PyQt6.QtWidgets import (
     QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, 
     QComboBox, QDateEdit, QSpinBox, QPushButton, 
-    QTableWidget, QFormLayout, QListWidget
+    QTableWidget, QFormLayout, QListWidget,QWidget
 )
 from PyQt6.QtCore import QDate, Qt
 
-class StudentDashboardApp(object):
+class StudentDashboardApp(QWidget):
     def setupUi(self, widget):
         
         #include the main widget container name so it matches the style sheet selectors
@@ -80,6 +80,17 @@ class StudentDashboardApp(object):
         self.announcements_list = QListWidget()
         self.announcements_list.setMinimumHeight(80)
         self.main_layout.addWidget(self.announcements_list)
+        
+        # search box to check the availability of a material
+        self.stock_search_label = QLabel("Search Material Availability:")  
+        self.stock_search_label.setObjectName("sectionLabel")  
+        self.main_layout.addWidget(self.stock_search_label)  
+        self.stock_search_input = QLineEdit()  
+        self.stock_search_input.setPlaceholderText("Search a material here e.g. Resistor")  
+        self.main_layout.addWidget(self.stock_search_input)  
+        self.stock_results = QListWidget()  
+        self.stock_results.setMinimumHeight(80)  
+        self.main_layout.addWidget(self.stock_results)
         
         # horizontal material entry row
         self.material_label = QLabel("Add Materials to Request:")
