@@ -105,9 +105,11 @@ class ITSODashboard(QWidget):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+    
     qss_filepath = Path(__file__).with_name("itso.qss")
     if qss_filepath.exists():
-        app.setStyleSheet(qss_filepath.read_text())
+    app.setStyleSheet(qss_filepath.read_text())
+    
     window = ITSODashboard()
     window.setWindowTitle("Laboratory Borrowing System")
     window.resize(1000, 650)
