@@ -164,6 +164,6 @@ if __name__ == "__main__":
         
     window = StudentDashboard()
     window.setWindowTitle("Laboratory Borrowing System")
-    window.resize(650, 650)
+    window.resize(900, 200)
     window.show()
     sys.exit(app.exec())
