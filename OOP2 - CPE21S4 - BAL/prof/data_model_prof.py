@@ -1,12 +1,12 @@
 from datetime import date
 
 class BorrowRequestData:
-    def __init__(self, request_id: int, student_id: str, name: str, course_sec: str, date_needed: date, items: str):
+    def __init__(self, request_id: int, student_id: str, name: str, course_section: str, date_needed: date, items: str):
         # to keep track of all data each inside a single borrowing request object
         self.request_id = request_id
         self.student_id = student_id
         self.name = name
-        self.course_sec = course_sec
+        self.course_section = course_section
         self.date_needed = date_needed
         self.items = items
         self.status = "Pending Approval"
