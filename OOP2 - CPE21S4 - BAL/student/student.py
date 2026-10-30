@@ -10,10 +10,13 @@ class StudentDashboard(QWidget):
     def __init__(self, shared_requests_list=None, shared_announcements=None, shared_inventory = None):
         super().__init__()
         
-        # to remember the shared list info links passed from the main application window
+        # saves the student requests list if it exists, or makes a new empty list if it is missing
         self.shared_requests = shared_requests_list if shared_requests_list is not None else []
+        
+        # saves the professor announcements list if it exists, or makes a new empty list if it is missing
         self.shared_announcements = shared_announcements if shared_announcements is not None else []
-        #list of stock from the staff dashboard
+        
+        # saves the items list from the stockroom if it exists, or makes a new empty list if it is missing
         self.shared_inventory = shared_inventory if shared_inventory is not None else[]
         
         # creates an instance of the interface layout
@@ -121,7 +124,6 @@ class StudentDashboard(QWidget):
         
         # gets the active calendar day and clock hour to stamp the form
         new_request.timestamp_submitted = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        self.shared_requests.append(new_request)
         
         # CSV conversion of slip of student to ITSO dashboard
         csv_filepath = "ITSO_maintenance_dashboard.csv"
