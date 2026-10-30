@@ -17,7 +17,7 @@ class StudentDashboardApp(QWidget):
         self.main_layout.setSpacing(12)
 
         # puts the main header text label for the top of the dashboard
-        self.title = QLabel("Student Dashboard Workspace")
+        self.title = QLabel("Student Request Form Dashboard")
         self.title.setObjectName("pageTitle")
 
         # display a smaller subtitle text explanation block below the main title
