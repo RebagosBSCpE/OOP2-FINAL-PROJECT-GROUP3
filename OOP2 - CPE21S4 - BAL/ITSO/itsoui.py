@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QTableWidget
 
-class ITSODashboardApp(object):
+class ITSODashboardApp(QWidget):
     def setupUi(self, widget):
         
         widget.setObjectName("ITSODashboard")
