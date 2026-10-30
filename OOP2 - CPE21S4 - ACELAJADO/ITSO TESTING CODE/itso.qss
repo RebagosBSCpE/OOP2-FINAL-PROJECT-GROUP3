@@ -1,0 +1,51 @@
+/* sets a clean corporate light background for the maintenance dashboard canvas */
+QWidget#ITSODashboard {
+    background-color: #f8fafc;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 13px;
+    color: #1e293b;
+}
+
+QLabel#pageTitle {
+    font-size: 22px;
+    font-weight: bold;
+    color: #eab308;
+}
+
+QLabel#pageSubtitle {
+    font-size: 12px;
+    color: #334155;
+}
+
+QLabel#sectionLabel {
+    font-weight: bold;
+    color: #1e293b;
+}
+
+QTableWidget {
+    background-color: white;
+    border: 2px solid #cbd5e1;
+    border-radius: 8px;
+    color: #0f172a;
+}
+
+QHeaderView::section {
+    background-color: #111827;
+    color: #eab308;
+    font-weight: bold;
+    padding: 6px;
+    border: none;
+}
+
+QPushButton#refreshBtn {
+    background-color: #334155;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 8px 16px;
+    border: none;
+}
+
+QPushButton#refreshBtn:hover {
+    background-color: #1e293b;
+}

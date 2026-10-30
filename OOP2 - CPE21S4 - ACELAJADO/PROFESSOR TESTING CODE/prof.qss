@@ -1,0 +1,93 @@
+/* sets the background color and text look for the professor dashboard canvas */
+QWidget {
+    background-color: #f8fafc;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 13px;
+    color: #1e293b;
+}
+
+/* changes the text size and sets the primary main title text color to TIP Gold */
+QLabel#pageTitle {
+    font-size: 20px;
+    font-weight: bold;
+    color: #eab308;
+}
+
+/* makes the sub-text under the main title smaller and shows a dark charcoal color */
+QLabel#pageSubtitle {
+    font-size: 12px;
+    color: #334155;
+}
+
+/* makes section labels bold to stand out from normal text */
+QLabel#sectionLabel {
+    font-weight: bold;
+    color: #1e293b;
+    margin-top: 5px;
+}
+
+/* sets standard styling for text inputs line boxes and text areas */
+QLineEdit, QTextEdit {
+    background-color: white;
+    border: 2px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 6px;
+    color: #0f172a;
+}
+
+/* changes the border color to TIP Gold when clicking or typing inside an input box */
+QLineEdit:focus, QTextEdit:focus {
+    border-color: #eab308;
+}
+
+/* sets styles for the table grid background and its outer borders */
+QTableWidget {
+    background-color: white;
+    border: 2px solid #cbd5e1;
+    border-radius: 8px;
+    color: #0f172a;
+}
+
+/* sets TIP Black header background with TIP Gold text */
+QHeaderView::section {
+    background-color: #111827;
+    color: #eab308;
+    font-weight: 600;
+    padding: 6px;
+    border: none;
+}
+
+QHeaderView {
+    background-color: #111827;
+    border: none;
+}
+
+/* styles publish and approve buttons with dark charcoal background */
+QPushButton#publishBtn, QPushButton#approveBtn {
+    background-color: #334155;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 10px;
+    border: none;
+}
+
+/* darkens the button on hover */
+QPushButton#publishBtn:hover, QPushButton#approveBtn:hover {
+    background-color: #1e293b;
+}
+
+/* styles the decline button with TIP Red background */
+QPushButton#rejectBtn {
+    background-color: #dc2626;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 10px;
+    border: none;
+}
+
+/* darkens the red color when you hover over the decline button */
+QPushButton#rejectBtn:hover {
+    background-color: #b91c1c;
+}
