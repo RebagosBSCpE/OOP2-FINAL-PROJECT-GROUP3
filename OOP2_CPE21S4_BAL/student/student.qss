@@ -1,0 +1,127 @@
+QWidget#StudentDashboard {
+    background-color: #f4f6fb;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 13px;
+    color: #1e293b;
+}
+
+/* changes the text size and sets the primary main title text color */
+QLabel#pageTitle {
+    font-size: 20px;
+    font-weight: bold;
+    color: #1e293b;
+}
+
+/* makes the sub-text under the main title smaller and shows a gray color */
+QLabel#pageSubtitle {
+    font-size: 12px;
+    color: #64748b;
+}
+
+/* makes section labels bold to stand out from normal text */
+QLabel#sectionLabel, QLabel#boldSectionLabel {
+    font-weight: bold;
+    color: #1e293b;
+}
+
+/* sets a standard dark blue color for all general descriptive labels in form rows */
+QLabel {
+    color: #1e293b;
+    font-weight: bold;
+}
+
+/* sets standard styling for text inputs, dropdown boxes, and date selectors */
+QLineEdit, QComboBox, QDateEdit, QSpinBox, QTextEdit, QListWidget {
+    background-color: white;
+    border: 2px solid #93b8e4;
+    border-radius: 8px;
+    padding: 6px;
+    color: #1e293b;
+}
+
+/* changes the border color when clicking or typing inside an input box */
+QLineEdit:focus, QComboBox:focus, QDateEdit:focus, QSpinBox:focus, QTextEdit:focus, QListWidget:focus {
+    border-color: #00f7ff;
+}
+
+/* sets white background and dark text for the up and down arrow buttons inside the spinbox */
+QSpinBox::up-button, QSpinBox::down-button {
+    background-color: white;
+    border-left: 1px solid #93b8e4;
+    width: 16px;
+}
+
+/* darkens the arrow buttons inside the spinbox when your mouse points to them */
+QSpinBox::up-button:hover, QSpinBox::down-button:hover {
+    background-color: #e2e8f0;
+}
+
+/* to force the popup list inside the dropdown box to show dark text on a white background */
+QComboBox QAbstractItemView {
+    background-color: white;
+    color: #1e293b;
+    selection-background-color: #81a1ca;
+    selection-color: white;
+}
+
+/* sets a blue background and white text for the item adding button */
+QPushButton#addItemBtn {
+    background-color: #81a1ca;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 8px;
+    border: none;
+}
+
+/* darkens the item adding button when the mouse points to it */
+QPushButton#addItemBtn:hover {
+    background-color:  #6c8eb8;
+}
+
+/* default gray background and bold text for the clear items button */
+QPushButton#clearItemsBtn {
+    background-color: #e2e8f0;
+    color: #334155;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 10px;
+    border: none;
+}
+
+/* darkens the clear button a little when it points the cursor to it */
+QPushButton#clearItemsBtn:hover {
+   background-color: #cbd5e1;
+}
+
+/* sets a bright light blue background and white text for the submit request button */
+QPushButton#submitRequestBtn {
+    background-color: #00ddff;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 10px;
+    border: none;
+}
+
+/* darkens the submit request button when the mouse hovers over it */
+QPushButton#submitRequestBtn:hover {
+    background-color: #00b8d4;
+}
+
+/* sets styles for the table grid background and its outer borders */
+QTableWidget {
+    background-color: white;
+    border: 2px solid #93b8e4;
+    border-radius: 8px;
+    color: #1e293b;
+}
+
+/* sets a gray background color and light text look for table row headers */
+QHeaderView::section {
+    background-color: #334155;
+    color: white;
+    font-weight: 600;
+    padding: 6px;
+    border: none;
+}

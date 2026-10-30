@@ -9,8 +9,15 @@ parent_dir = str(Path(__file__).resolve().parent.parent)
 if parent_dir not in sys.path:
     sys.path.append(parent_dir)
 
+root_dir = str(Path(__file__).resolve().parent.parent)
+if root_dir not in sys.path:
+    sys.path.append(root_dir)
+
 from profui import ProfessorDashboardApp
 from studentui import StudentDashboardApp
+from OOP2_CPE21S4_BAL.ITSO.itsoui import ITSODashboardApp
+from OOP2_CPE21S4_BAL.staff.staffui import StaffDashboardApp
+
 
 class LoginWindow(QWidget):
     def __init__(self):
@@ -134,9 +141,16 @@ class LoginWindow(QWidget):
             QTimer.singleShot(3000, self.login_prof)
 
         elif role == "Laboratory Staff" and user == "staff" and password == "staff123":
+
             is_valid = True
+
+            QTimer.singleShot(3000, self.login_staff)
+
         elif role == "ITSO Maintenance" and user == "itso" and password == "itso123":
+
             is_valid = True
+
+            QTimer.singleShot(3000, self.login_itso)
             
         # checks if the typed username and password match the selected role options
         if is_valid:
@@ -181,6 +195,22 @@ class LoginWindow(QWidget):
         self.prof_dashboard = ProfessorDashboardApp()
         self.prof_dashboard.setupUi(self.prof_dashboard)
         self.prof_dashboard.show()
+        self.close()
+
+    def login_staff(self):
+
+        self.staff_dashboard = QWidget()
+        self.staff_dashboard = StaffDashboardApp()
+        self.staff_dashboard.setupUi(self.staff_dashboard)
+        self.staff_dashboard.show()
+        self.close()
+
+    def login_itso(self):
+
+        self.itso_dashboard = QWidget()
+        self.itso_dashboard = ITSODashboardApp()
+        self.itso_dashboard.setupUi(self.itso_dashboard)
+        self.itso_dashboard.show()
         self.close()
         
     # shakes the window window frame left and right to signal a bad password attempt
