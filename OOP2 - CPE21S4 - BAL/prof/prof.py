@@ -9,8 +9,9 @@ class ProfessorDashboard(QWidget):
     def __init__(self, shared_requests_list=None, shared_announcement=None):
         super().__init__()
         
-        # to keep track of the shared list data links passed from the main application window
+        # saves the student requests list if it exists, or makes a new empty list if it is missing
         self.shared_requests = shared_requests_list if shared_requests_list is not None else []
+        # saves the professor announcements list if it exists, or makes a new empty list if it is missing
         self.shared_announcements = shared_announcement if shared_announcement is not None else []
         
         # creates an instance of the interface layout
@@ -59,7 +60,7 @@ class ProfessorDashboard(QWidget):
             self.ui.requests_table.insertRow(row)
             self.ui.requests_table.setItem(row, 0, QTableWidgetItem(req.student_id))
             self.ui.requests_table.setItem(row, 1, QTableWidgetItem(req.name))
-            self.ui.requests_table.setItem(row, 2, QTableWidgetItem(req.course_sec))
+            self.ui.requests_table.setItem(row, 2, QTableWidgetItem(req.course_section))
             self.ui.requests_table.setItem(row, 3, QTableWidgetItem(str(req.date_needed))) # converts the date into plain text to prevent crashes
             self.ui.requests_table.setItem(row, 4, QTableWidgetItem(req.items))
             self.ui.requests_table.setItem(row, 5, QTableWidgetItem(req.status))
