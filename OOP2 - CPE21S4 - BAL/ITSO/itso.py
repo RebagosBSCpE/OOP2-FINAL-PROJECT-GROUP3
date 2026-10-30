@@ -58,7 +58,7 @@ class ITSODashboard(QWidget):
                     if col_idx < 10: # access 3 more slots, allowing the program to read and display all 10 tracking columns 
                         # changes data to normal text and puts it directly into table cells
                         self.ui.log_table.setItem(row_idx, col_idx, QTableWidgetItem(str(value)))
-                # refreshes the column width after loading the new texts
+                # refreshes the column width calculations after loading the new texts
                 self.ui.log_table.resizeColumnsToContents() # adjusts the column boxes so that long timestamp strings fit and looks neat
                         
         except Exception as e:
@@ -82,7 +82,7 @@ class ITSODashboard(QWidget):
                     # uses shutil.copy to safely clone the live csv file over into the backup folder location
                     shutil.copy(self.csv_filepath, destination_file)
                     QMessageBox.information(self, "Success", f"Backup folder has created and file saved at:\n{destination_file}")
-                # if the log file cannot be found 
+                # runs this warning path if the log file cannot be found by python
                 else:
                     QMessageBox.warning(self, "Info", "Backup folder created, but no active student CSV log was found to copy.")
         except Exception as e:
@@ -105,11 +105,9 @@ class ITSODashboard(QWidget):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    
     qss_filepath = Path(__file__).with_name("itso.qss")
     if qss_filepath.exists():
-    app.setStyleSheet(qss_filepath.read_text())
-    
+        app.setStyleSheet(qss_filepath.read_text())
     window = ITSODashboard()
     window.setWindowTitle("Laboratory Borrowing System")
     window.resize(1000, 650)
