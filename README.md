@@ -10,7 +10,7 @@
 
 In most school laboratories, borrowing equipment relies on a paper-based method students fill out physical slips, hunt down professors for signatures, and hand them to the laboratory staff to write down. Paper forms get lost, signatures are hard to track down, and staff cannot easily verify which items are currently available or who holds what.
 
-This PyQt6 desktop application eliminates paper-based methods to make borrowing faster, more convenient, and easily accessible at any time. It keeps the same borrowing steps but digitizes them in one centralized system students submit borrowing requests digitally, professors approve or reject them online, and laboratory staff release and receive items while maintaining staff-based records and real-time inventory updates. Packaged as a standalone .exe, this PyQt6 application solves the problem by preventing lost slips, stopping invalid requests, and keeping stock counts automatically accurate.
+This PyQt6 desktop application eliminates paper-based methods to make borrowing faster, more convenient, and easily accessible at any time. It keeps the same borrowing steps but digitizes them in one centralized system students submit borrowing requests digitally, every request is recorded in the ITSO CSV log, professors approve or reject them online, and laboratory staff release and receive items while maintaining staff-based records and real-time inventory updates. Packaged as a standalone .exe, this PyQt6 application solves the problem by preventing lost slips, stopping invalid requests, and keeping stock counts automatically accurate.
 
 <br>
 
@@ -18,7 +18,7 @@ This PyQt6 desktop application eliminates paper-based methods to make borrowing 
 
 <table>
 <tr>
-<td width="33%" valign="top">
+<td width="25%" valign="top">
 
 ### 🎓 Student
 - Logs in and fills out a borrow slip
@@ -27,7 +27,15 @@ This PyQt6 desktop application eliminates paper-based methods to make borrowing 
 - Tracks the slip status
 
 </td>
-<td width="33%" valign="top">
+<td width="25%" valign="top">
+
+### 🗂️ ITSO
+- Logs in and sees every submitted request in the CSV log
+- Refreshes the log to see the newest requests and statuses
+- Generates or deletes a backup folder of the records
+
+</td>
+<td width="25%" valign="top">
 
 ### 👨‍🏫 Professor
 - Logs in and sees slips sent to him or her
@@ -35,7 +43,7 @@ This PyQt6 desktop application eliminates paper-based methods to make borrowing 
 - Adds optional remarks
 
 </td>
-<td width="33%" valign="top">
+<td width="25%" valign="top">
 
 ### 🧑‍🔧 Laboratory Staff
 - Logs in and sees approved slips
@@ -52,8 +60,10 @@ This PyQt6 desktop application eliminates paper-based methods to make borrowing 
 
 | | Feature | Description |
 |:-:|---|---|
-| 🔐 | **Role-based login** | Opens the dashboard that matches the user: student, professor, or staff |
+| 🔐 | **Role-based login** | Opens the dashboard that matches the user: student, ITSO, professor, or staff |
 | 📝 | **Borrow slip form** | Items, quantities, purpose, date needed, and the professor to send it to |
+| 🗂️ | **ITSO maintenance dashboard** | Shows every submitted request in a table, with Sync / Refresh CSV Log, Generate Backup Folder, and Delete Backup Folder |
+| 🧾 | **CSV request log** | Each submitted slip is saved automatically in the ITSO CSV log, and every status change is updated in it |
 | 📊 | **Slip tracking** | Statuses: Pending, Approved, Rejected, Released, Returned |
 | ✅ | **Approve or reject** | Professors review their slips with optional remarks |
 | 📦 | **Release and return** | Staff verify the student ID, release items, and receive returns |
@@ -74,5 +84,3 @@ This PyQt6 desktop application eliminates paper-based methods to make borrowing 
 | **Csv** | Saving and loading data |
 | **PyInstaller** | Packaging as a Windows .exe |
 | **Git and GitHub** | Version control and teamwork |
-
-
