@@ -1,0 +1,221 @@
+from PyQt6.QtWidgets import QWidget, QMessageBox, QTableWidgetItem, QPushButton
+from Student_UI import StudentDashboardApp
+from pathlib import Path
+from Data_Model import BorrowRequestData
+from CSVFileReaderWriter import CSVFileReaderWriter
+import sys
+import os
+from datetime import datetime
+class StudentDashboard(QWidget):
+    def __init__( self, shared_requests_list=None , shared_announcements= None , shared_inventory = None):
+        super().__init__()
+        
+        # saves the  student requests list if  it exists, or makes  a  new  empty  list  if it is  missing
+        self.shared_requests  = shared_requests_list if shared_requests_list is not None else []
+        
+        # saves  the  professor  announcements  list if it  exists, or makes  a  new empty  list  if  it is missing
+        self.shared_announcements   = shared_announcements if shared_announcements is not None else []
+        
+        # saves  the  items list  from  the  stockroom if it  exists, or makes a  new  empty list if  it is  missing
+        self.shared_inventory = shared_inventory if shared_inventory is not None else[]
+        
+        # creates  an instance of  the  interface layout
+        self.ui  =   StudentDashboardApp()
+        self.ui.setupUi (self)
+        
+        self.display_request()  # display the student's own requests in the tracking table
+        #signals
+        self.ui.add_item_btn.clicked.connect  (self.add_item_to_table)
+        self.ui.clear_items_btn.clicked.connect(self.clear_table_items)
+        self.ui.submit_request_btn.clicked.connect (self.process_submission)
+        self.ui.stock_search_input.textChanged.connect(self.search_stock) # connects the typing input box to the search function
+        
+        # runs  the professor  list update function  whenever the  program dropdown  changes
+        self.ui.program.currentTextChanged.connect (self.update_professor_list)
+        
+        # automatically  updates the  dashboard display items list on  startup
+        self.load_announcements_data()
+        
+        # sets  up  the  correct professors for  the  default  selected program  on  startup
+        self.update_professor_list()
+        
+    def display_request (self):
+        # clears out  the  table  before displaying  new data
+        self.ui.tracking_table.setRowCount  (0)
+        student_id  = self.ui.student_id.text().strip()
+        
+        # loops  through  the  shared requests list  to  fill the display  rows
+        for idx, req in enumerate (self.shared_requests):
+        # if  student_id  field  is  empty, show all for  testing, otherwise filter by active  student
+            if  student_id and req.student_id != student_id:
+                continue
+            
+            row  = self.ui.tracking_table.rowCount()
+            self.ui.tracking_table.insertRow(row)
+            self.ui.tracking_table.setItem(row, 0, QTableWidgetItem(str(req.request_id)))
+            self.ui.tracking_table.setItem  (row, 1, QTableWidgetItem(req.items))
+            self.ui.tracking_table.setItem(row, 2, QTableWidgetItem(req.status))
+            self.ui.tracking_table.setItem (row, 3, QTableWidgetItem(req.lab_id if req.lab_id else "N   / A"))
+
+            return_btn   =   QPushButton ("Return to Staff")
+            return_btn.setObjectName("addItemBtn") # uses the same style as the add item button
+            
+            if req.status    ==  "Released by Laboratory Staff":
+                return_btn.setEnabled(True)
+            else:
+                return_btn.setEnabled(False)
+                if req.status    ==  "Pending Return Confirmation":
+                    return_btn.setText("Awaiting Return Confirmation")
+                elif req.status    == "Returned/Completed":
+                    return_btn.setText  ("Returned")
+                else:
+                    return_btn.setText ("Not Ready for Return")
+            
+            return_btn.setProperty ("row_index", idx)
+            return_btn.clicked.connect  (self.handle_release_return_click)
+            self.ui.tracking_table.setCellWidget (row , 4 , return_btn)
+    
+    def handle_release_return_click (self):
+        # identifies  which  button was clicked and  reads its  row  number
+        button =  self.sender()
+        if button:
+            target_row = button.property  ("row_index") 
+            request = self.shared_requests[target_row] 
+            
+            request.status = "Pending Return Confirmation" # updates the  status to alert the staff that the student is returning the items
+            request.timestamp_returned   = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            
+            self.sync_local_to_csv_data()  # save the updated request status to the CSV file
+            QMessageBox.information( self, "Return Initiated", f"Materials for Request #{request.request_id} are marked for return. Please surrender them to the laboratory room along with Lab Ticket ID: {request.lab_id}.")
+            self.display_request()
+            
+    
+    def sync_local_to_csv_data (self):
+        csv_filepath = "ITSO_Maintenance_data.csv"  
+        csv_handler = CSVFileReaderWriter()
+       
+        csv_handler.write( csv_filepath, ["Request ID", "Student ID", "Name", "Course Section", "Date Needed", "Items", "Status", "Lab ID", "Time Submitted", "Time Returned"])
+        for req in self.shared_requests:
+            record_row   =   [
+                str(req.request_id), req.student_id, req.name, req.course_section,
+                str(req.date_needed), req.items, req.status, req.lab_id,
+                req.timestamp_submitted, req.timestamp_returned
+            ]
+            csv_handler.write( csv_filepath, record_row)
+            
+    def load_announcements_data (self):
+        # clears out the  list view widget completely  before showing  fresh notes
+        self.ui.announcements_list.clear()
+                
+        # loops  through  the shared announcements list to fill the  display  rows
+        for info in self.shared_announcements:
+            self.ui.announcements_list.addItem(f"[{info.time_posted}] {info.author}: {info.message}")
+    
+    # shows the  materials that match  the typed text  together with  how many are available
+    def search_stock (self):
+        self.ui.stock_results.clear()
+        text = self.ui.stock_search_input.text().strip().lower()
+        if not text:
+            return
+        if not self.shared_inventory:
+            self.ui.stock_results.addItem  ("No inventory data received yet.")
+            return
+        for stock in self.shared_inventory:
+            if text in stock.material_name.lower():
+                self.ui.stock_results.addItem(f"{stock.material_name}   -   {stock.quantity_available} available")
+        if self.ui.stock_results.count() == 0:
+            self.ui.stock_results.addItem ("No matching material found.")
+            
+    def update_professor_list  (self):
+        self.ui.professor.clear()
+        program = self.ui.program.currentText()
+        if "Computer Engineering" in program:
+            self.ui.professor.addItems (["Engr. Jimlord Quejado", "Engr. Menchie Rosales", "Engr. Ji Han Gang", "Engr. Lloyd Pornobi"])
+        elif "Electronics Engineering" in program:
+            self.ui.professor.addItems  (["Engr. Ryan Alimuin", "Engr. Oliver John Alajas"])
+        elif "Electrical Engineering" in program:
+            self.ui.professor.addItems  (["Dr. Christine Ann Teodoro Alquero", "Engr. Vhander Ramos"])
+
+    def add_item_to_table(self):
+        name   = self.ui.material_name_input.text().strip() 
+        qty   =   str(self.ui.quantity_spin.value())
+        
+        # stops  the  action and shows a warning  popup  if the  material name is  blank
+        if not name:
+            QMessageBox.warning  (self, "Validation Error", "Please type a material name first.")
+            return
+            
+        # gets  the total rows, adds  a  new  empty  row, and adds  the material name  and quantity  to  the list
+        row_idx = self.ui.items_table.rowCount()   
+        self.ui.items_table.insertRow  (row_idx)
+        self.ui.items_table.setItem (row_idx , 0, QTableWidgetItem(name))
+        self.ui.items_table.setItem(row_idx , 1 , QTableWidgetItem(qty))
+        
+        # reset  the  material bar  inputs  and sets the item  count  spinbox back  to  one
+        self.ui.material_name_input.clear()
+        self.ui.quantity_spin.setValue (1)
+
+    def clear_table_items (self):
+        self.ui.items_table.setRowCount (0)  # removes every added material item row from the display list table
+
+    def process_submission  (self):
+        student_name =  self.ui.student_name.text().strip()
+        student_id = self.ui.student_id.text().strip()
+        course_section   =   self.ui.course_section.text().strip()
+        date_needed  = self.ui.date_needed.date().toPyDate() 
+        self.display_request()
+        # shows a  warning message box  if  the  name field or  any  personal  information  text lines are blank
+        if not student_name or not student_id:
+            QMessageBox.warning  (self, "Validation Error", "Please provide your student ID and Name before submitting.")
+            return
+        
+        # shows  an  error message if the student  tries  to submit  a  completely empty  table
+        if self.ui.items_table.rowCount()    ==  0:
+            QMessageBox.warning (self, "Validation Error", "Your request list is empty. Add at least one item first.")
+            return
+        
+        # collects  all  table  item grid lines  and  bundles them  into  a  single  string
+        collected_items   = []
+        for r in range  (self.ui.items_table.rowCount()):
+            item_name  =   self.ui.items_table.item(r, 0).text()
+            item_qty   = self.ui.items_table.item(r,  1).text()
+            collected_items.append (f"{item_name} (x{item_qty})")
+        items_summary = ", ".join  (collected_items)
+                
+        # creates  a  new  request  object tracking code  and adds  it  to the  shared list data array
+        request_id   = len(self.shared_requests) + 1
+        new_request   = BorrowRequestData(request_id,  student_id, student_name, course_section, date_needed, items_summary)
+        self.shared_requests.append(new_request)
+       
+        # gets  the active calendar day  and clock hour  to stamp the  form
+        new_request.timestamp_submitted   =  datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
+        # csv  conversion  of  slip  of  student to itso  dashboard
+        csv_filepath   = "ITSO_Maintenance_data.csv"
+        csv_handler   =  CSVFileReaderWriter()
+       
+        # verifies if the target backup  file  does not exist on the computer  yet
+        if not os.path.exists (csv_filepath):
+            # creates the spreadsheet text  file  tracking column titles as the  very  first  line
+            csv_handler.write ( csv_filepath, ["Request ID" , "Student ID" , "Name", "Course Section", "Date Needed", "Items", "Status", "Lab ID", "Time Submitted", "Time Returned"])
+            
+        # collect  and  converts all the items into  a row list
+        record_row = [
+            str(new_request.request_id) , new_request.student_id, new_request.name,
+            new_request.course_section , str(new_request.date_needed), new_request.items, 
+            new_request.status, new_request.lab_id, new_request.timestamp_submitted , new_request.timestamp_returned
+        ]   
+        # saves  the rows of data directly into  the spreadsheet file
+        csv_handler.write  (csv_filepath, record_row)
+        
+        # displays a  confirmation that  the request form  was submitted
+        QMessageBox.information (self, "Success", f"Borrowing request submitted successfully for {student_name}!")
+        self.clear_entire_form()
+
+    def clear_entire_form (self):
+        #clears  out all  text entry fields  and empties the  main table  list
+        self.ui.student_id.clear()
+        self.ui.student_name.clear() 
+        self.ui.course_section.clear()
+        self.clear_table_items()
+        self.display_request()
