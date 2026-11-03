@@ -39,7 +39,7 @@ This PyQt6 desktop application eliminates paper-based methods to make borrowing 
 <img src="https://img.shields.io/badge/-STUDENT-231F20?style=flat-square" alt="Student">
 
 - Logs in and fills out a borrow slip
-- Picks items, quantities, purpose, and date needed
+- Picks items, quantities, and date needed
 - Chooses which professor receives the slip
 - Tracks the slip status
 
@@ -57,7 +57,7 @@ This PyQt6 desktop application eliminates paper-based methods to make borrowing 
 
 <img src="https://img.shields.io/badge/-PROFESSOR-231F20?style=flat-square" alt="Professor">
 
-- Logs in and sees slips sent to him or her
+- Logs in and sees the submitted student slips
 - Approves or rejects each slip
 - Adds optional remarks
 
@@ -66,8 +66,8 @@ This PyQt6 desktop application eliminates paper-based methods to make borrowing 
 
 <img src="https://img.shields.io/badge/-LAB%20STAFF-FADE00?style=flat-square&labelColor=FADE00" alt="Laboratory Staff">
 
-- Logs in and sees approved slips
-- Releases items against the student ID
+- Logs in and sees the student requests and their approval status
+- Releases approved items against the Lab Ticket ID
 - Receives returned items
 - See the available materials inside inventory
 
@@ -84,16 +84,16 @@ This PyQt6 desktop application eliminates paper-based methods to make borrowing 
 | | Feature | Description |
 |:-:|---|---|
 | <img src="https://img.shields.io/badge/01-FADE00?style=flat-square" alt="01"> | **Role-based login** | Opens the dashboard that matches the user: student, ITSO, professor, or staff |
-| <img src="https://img.shields.io/badge/02-FADE00?style=flat-square" alt="02"> | **Borrow slip form** | Items, quantities, purpose, date needed, and the professor to send it to |
+| <img src="https://img.shields.io/badge/02-FADE00?style=flat-square" alt="02"> | **Borrow slip form** | Items, quantities, date needed, and the professor to send it to |
 | <img src="https://img.shields.io/badge/03-FADE00?style=flat-square" alt="03"> | **ITSO maintenance dashboard** | Shows every submitted request in a table, with Sync / Refresh CSV Log, Generate Backup Folder, and Delete Backup Folder |
 | <img src="https://img.shields.io/badge/04-FADE00?style=flat-square" alt="04"> | **CSV request log** | Each submitted slip is saved automatically in the ITSO CSV log, and every status change is updated in it |
-| <img src="https://img.shields.io/badge/05-FADE00?style=flat-square" alt="05"> | **Slip tracking** | Statuses: Pending, Approved, Rejected, Released, Returned |
-| <img src="https://img.shields.io/badge/06-FADE00?style=flat-square" alt="06"> | **Approve or reject** | Professors review their slips with optional remarks |
-| <img src="https://img.shields.io/badge/07-FADE00?style=flat-square" alt="07"> | **Release and return** | Staff verify the student ID, release items, and receive returns |
-| <img src="https://img.shields.io/badge/08-FADE00?style=flat-square" alt="08"> | **Inventory management** | Add, edit, and delete equipment with total, available, and borrowed counts |
-| <img src="https://img.shields.io/badge/09-FADE00?style=flat-square" alt="09"> | **Save and load** | Users, equipment, and slips are stored in `csv` and kept after closing |
-| <img src="https://img.shields.io/badge/10-FADE00?style=flat-square" alt="10"> | **Menu bar and toolbar** | Save, Logout, and Exit|
-| <img src="https://img.shields.io/badge/11-FADE00?style=flat-square" alt="11"> | **Input validation** | Blocks empty fields, zero or excessive quantities, and unavailable items |
+| <img src="https://img.shields.io/badge/05-FADE00?style=flat-square" alt="05"> | **Slip tracking** | Statuses: Pending Approval, Approved, Rejected, Released by Laboratory Staff, Pending Return Confirmation, Returned / Completed |
+| <img src="https://img.shields.io/badge/06-FADE00?style=flat-square" alt="06"> | **Approve or reject** | Professors review the slips with optional remarks (a reason is required to decline) |
+| <img src="https://img.shields.io/badge/07-FADE00?style=flat-square" alt="07"> | **Release and return** | Staff enter the Lab Ticket ID, release items, and confirm returns |
+| <img src="https://img.shields.io/badge/08-FADE00?style=flat-square" alt="08"> | **Inventory management** | Add stock to existing equipment or create new equipment, with total, available, and borrowed counts |
+| <img src="https://img.shields.io/badge/09-FADE00?style=flat-square" alt="09"> | **Save and load** | Equipment and slips are stored in `csv` and kept after closing |
+| <img src="https://img.shields.io/badge/10-FADE00?style=flat-square" alt="10"> | **Menu bar** | File (Logout and Exit) and About |
+| <img src="https://img.shields.io/badge/11-FADE00?style=flat-square" alt="11"> | **Input validation** | Blocks empty fields, an empty item list, and releasing more than the available stock |
 
 <img src="https://placehold.co/900x4/BCBDC1/BCBDC1" width="100%" alt="">
 
